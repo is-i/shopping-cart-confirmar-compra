@@ -32,6 +32,19 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     public void save(Product product) {
-        products.add(product);
+        int i = 0;
+        boolean found = false;
+
+        while (i < products.size() && !found) {
+            if (products.get(i).getId() == product.getId()) {
+                products.set(i, product);
+                found = true;
+            }
+            i++;
+        }
+
+        if (!found) {
+            products.add(product);
+        }
     }
 }

@@ -30,7 +30,7 @@ public class ShoppingCartApp {
         customerRepository = new InMemoryCustomerRepository();
         purchaseRepository = new InMemoryPurchaseRepository();
         agregarProductoAlCarritoUseCase = new AgregarProductoAlCarritoUseCase(productRepository, cartRepository);
-        confirmarCompraUseCase = new ConfirmarCompraUseCase(cartRepository, customerRepository, purchaseRepository);
+        confirmarCompraUseCase = new ConfirmarCompraUseCase(cartRepository, customerRepository, purchaseRepository, productRepository);
 
         cargarDatosIniciales();
     }

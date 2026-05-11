@@ -9,6 +9,7 @@ import isi.shoppingCart.entities.PurchaseItem;
 import isi.shoppingCart.usecases.dto.OperationResult;
 import isi.shoppingCart.usecases.ports.CartRepository;
 import isi.shoppingCart.usecases.ports.CustomerRepository;
+import isi.shoppingCart.usecases.ports.ProductRepository;
 import isi.shoppingCart.usecases.ports.PurchaseRepository;
 
 import java.util.List;
@@ -17,13 +18,15 @@ public class ConfirmarCompraUseCase {
     private CartRepository cartRepository;
     private CustomerRepository customerRepository;
     private PurchaseRepository purchaseRepository;
+    private ProductRepository productRepository;
 
     public ConfirmarCompraUseCase(CartRepository cartRepository,
                                   CustomerRepository customerRepository,
-                                  PurchaseRepository purchaseRepository) {
+                                  PurchaseRepository purchaseRepository, ProductRepository productRepository) {
         this.cartRepository = cartRepository;
         this.customerRepository = customerRepository;
         this.purchaseRepository = purchaseRepository;
+        this.productRepository = productRepository;
     }
 
     public OperationResult execute() {
@@ -59,6 +62,7 @@ public class ConfirmarCompraUseCase {
 
             product.decreaseAvailableQuantity(item.getQuantity());
             purchase.addItem(new PurchaseItem(product, item.getQuantity(), product.getPrice()));
+            productRepository.save(product);
         }
 
         purchaseRepository.save(purchase);
